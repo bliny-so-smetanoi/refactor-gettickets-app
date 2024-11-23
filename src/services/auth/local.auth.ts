@@ -1,5 +1,3 @@
-import { Strategy } from 'passport-local';
-import { PassportStrategy } from '@nestjs/passport';
 import {Injectable, UnauthorizedException, CanActivate, ExecutionContext} from '@nestjs/common';
 import {Observable} from "rxjs";
 import {JwtService} from "@nestjs/jwt";

@@ -2,18 +2,21 @@ import {Body, Controller, Get, HttpStatus, Param, Req, Res, UseGuards} from '@ne
 import {UsersService} from "../../services/users/users.service";
 import {UserInfoDto} from "../../dtos/user.info.dto";
 import {AuthGuard} from "../../services/auth/local.auth";
+import { Request } from 'express';
+import { JwtService } from '@nestjs/jwt';
 
 
 @Controller('user')
 export class UserController {
-    constructor(private readonly usersService: UsersService) {
-    }
+    constructor(private readonly usersService: UsersService,
+                private readonly jwtService: JwtService) {}
 
     @UseGuards(AuthGuard)
     @Get('/')
-    async getUserInfo(@Res() res, @Req() req, @Body() userInfoDto: UserInfoDto): Promise<void> {
+    async getUserInfo(@Res() res, @Req() req: Request, @Body() userInfoDto: UserInfoDto): Promise<void> {
         try {
-            const user = await this.usersService.getInfoWithOrders(userInfoDto.id)
+            const userId = this.jwtService.decode(req.headers['authorization'].split(' ')[1]).sub;
+            const user = await this.usersService.getInfoWithOrders(userId)
             res.status(HttpStatus.OK).json(user)
 
         } catch (e) {

@@ -3,7 +3,6 @@ import {AuthService} from "../../services/auth/auth.service";
 import {UserLoginDto} from "../../dtos/user.login.dto";
 import {UserRegisterDto} from "../../dtos/user.register.dto";
 import {UsersService} from "../../services/users/users.service";
-import {AuthGuard} from "../../services/auth/local.auth";
 
 @Controller('auth')
 export class AuthController {
