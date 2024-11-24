@@ -6,7 +6,8 @@ import { RegisterForm } from "../../forms/RegisterForm";
 import { EventData } from "../../models/response/EventByIdResponse";
 import { CreateOrderRequest } from "../../models/request/CreateOrder";
 
-const token = JSON.parse(localStorage.getItem('user') as string).token;
+const token = JSON.parse(localStorage.getItem('user') as string)?.token;
+console.log(token);
 
 export const ticketsApi = createApi({
     reducerPath: 'tickets/api',
